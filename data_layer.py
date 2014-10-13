@@ -34,7 +34,7 @@ def get_tracks(collection_id, offset=0, limit=10):
 #-- track functions
 def get_track_audio(track_id):
     
-    track = json.load(open('data/%d.json' % track_id))
+    track = json.load(open('data/%08d.json' % track_id))
 
     return track['filename']
 
@@ -76,18 +76,8 @@ def __get_track_midlevel(track):
 
 def get_track_analysis(track_id):
 
-    analysis = json.load(open('data/%d.json' % track_id))
+    analysis = json.load(open('data/%08d.json' % track_id))
 
     analysis['track_id'] = track_id
-
-#     track = gordon.Track.query.get(track_id)
-
-#     analysis = { 'track_id':    track_id,
-#                  'title':       track.title,
-#                  'artist':      track.artist,
-#                  'album':       track.album}
-
-#     analysis.update(__get_track_lowlevel(track))
-#     analysis.update(__get_track_midlevel(track))
 
     return analysis

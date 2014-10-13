@@ -121,7 +121,7 @@ def send_file_partial(path, **kwargs):
 # Main block
 def process_arguments():
 
-    parser = argparse.ArgumentParser(description='Yankomatic web server')
+    parser = argparse.ArgumentParser(description='LSDViz web server')
 
     parser.add_argument(    '-i',
                             '--ini',
