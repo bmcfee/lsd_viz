@@ -442,13 +442,20 @@ function draw_structure(beats, beat_links, all_segments, target) {
         return function() {
             var arcs = d3.selectAll('[level="' + level + '"]');
 
+
             if (value) {
-                console.log('Adding highlight to ' + arcs.length);
                 arcs.style('fill-opacity', 1.0);
             } else {
-                console.log('Removing highlight to ' + arcs.length);
-                arcs.style('fill-opacity', 0.5);
+                arcs.style('fill-opacity', 0.25);
             }
+            
+//             d3.selectAll('path').style('stroke', 'none');
+//             var label = $(this).attr('label');
+//             var my_arcs = d3.selectAll('[level="' + level + '"][label="' + label + '"]');
+//             my_arcs.style('stroke', 'white')
+//                     .style('stroke-width', '4px')
+//                     .style('stroke-opacity', 1.0);
+
         }
     }
 
@@ -505,12 +512,22 @@ function draw_structure(beats, beat_links, all_segments, target) {
                 }
                 console.log('Skip to time: ' + beats[beat_id]);
                 $('#audio-widget')[0].currentTime = beats[beat_id];
+
+
+                d3.selectAll('path').style('stroke', 'none');
+                var level = $(this).attr('level');
+                var label = $(this).attr('label');
+                var my_arcs = d3.selectAll('[level="' + level + '"][label="' + label + '"]');
+                my_arcs.style('stroke', 'white')
+                        .style('stroke-width', '4px')
+                        .style('stroke-opacity', 1.0);
+
             };
         }
 
         var arcs = svg.append('g');
 
-        var segment_width = 40 - 4 * segment_level;
+        var segment_width = 35 - 2 * segment_level;
 
         for (var j = 0; j < labels.length; j++) {
             // get the extent
@@ -527,13 +544,16 @@ function draw_structure(beats, beat_links, all_segments, target) {
             arcs.append('path')
                 .attr('d', segment_arc)
                 .style('fill', colors[labels[j]])
-                .style('fill-opacity', 0.5)
+                .style('fill-opacity', 0.25)
                 .attr('level', segment_level)
+                .attr('label', labels[j])
                 .attr('start_time', beats[segments[j]])
+                .on('mouseenter', highlight(segment_level, true))
+                .on('mouseleave', highlight(segment_level, false))
                 .on("click", time_skip(segments, j));
         }
-        arcs.on('mouseenter', highlight(segment_level, true))
-            .on('mouseleave', highlight(segment_level, false));
+//         arcs.on('mouseenter', highlight(segment_level, true))
+//             .on('mouseleave', highlight(segment_level, false));
 
         radius_i = radius_i + segment_width + 2;
     }

@@ -50,4 +50,4 @@ body { overflow-x: hidden; }
 .lines      { height:   140px;      }
 .zoomwindow { height:   80px;       }
 .heatmap    { height:   180px;      }
-.structplot { width:    580px; display: block; margin-left: auto; margin-right: auto;}
+.structplot { width:    620px; display: block; margin-left: auto; margin-right: auto;}
