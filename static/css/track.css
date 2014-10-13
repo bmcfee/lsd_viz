@@ -23,6 +23,7 @@
 
 .highlight {
   stroke: white;
+  fill-opacity: 1.0;
   stroke-width: 2px;
 }
 

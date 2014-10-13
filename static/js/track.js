@@ -440,15 +440,14 @@ function draw_structure(beats, beat_links, all_segments, target) {
     function highlight(level, value) {
 
         return function() {
-            var arcs = $('[level="' + level + '"]');
+            var arcs = d3.selectAll('[level="' + level + '"]');
 
             if (value) {
                 console.log('Adding highlight to ' + arcs.length);
-                arcs.addClass('highlight');
-                
+                arcs.style('fill-opacity', 1.0);
             } else {
                 console.log('Removing highlight to ' + arcs.length);
-                arcs.removeClass('highlight');
+                arcs.style('fill-opacity', 0.5);
             }
         }
     }
@@ -528,6 +527,7 @@ function draw_structure(beats, beat_links, all_segments, target) {
             arcs.append('path')
                 .attr('d', segment_arc)
                 .style('fill', colors[labels[j]])
+                .style('fill-opacity', 0.5)
                 .attr('level', segment_level)
                 .attr('start_time', beats[segments[j]])
                 .on("click", time_skip(segments, j));
