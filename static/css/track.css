@@ -1,0 +1,52 @@
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text{
+    fill: #000;
+}
+
+.marker {
+    fill: none;
+    stroke: red;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.highlight {
+  stroke: white;
+  stroke-width: 2px;
+}
+
+.node {
+  font: 10px fixed;
+  color: black;
+}
+
+.link {
+    stroke-opacity: .15;
+    fill: none;
+    stroke: steelblue;
+}
+
+.brush .extent {
+  stroke: gray;
+  fill: steelblue;
+  fill-opacity: .25;
+}
+
+body { overflow-x: hidden; }
+.plot       { width:    80%;  margin:4px; padding: 4px;}
+.beats      { height:   40px;       }
+.lines      { height:   140px;      }
+.zoomwindow { height:   80px;       }
+.heatmap    { height:   180px;      }
+.structplot { width:    580px; display: block; margin-left: auto; margin-right: auto;}
