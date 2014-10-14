@@ -44,7 +44,8 @@
   fill-opacity: .25;
 }
 
-body { overflow-x: hidden; }
+body { overflow-x: hidden; background-color: #333}
+.page-header { color: #eee; margin-top: 0; padding-top: 0}
 .plot       { width:    80%;  margin:4px; padding: 4px;}
 .beats      { height:   40px;       }
 .lines      { height:   140px;      }
