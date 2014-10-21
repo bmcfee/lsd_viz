@@ -13,6 +13,7 @@
 .marker {
     fill: none;
     stroke: red;
+    stroke-width: 4px;
 }
 
 .line {
