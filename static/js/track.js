@@ -397,7 +397,7 @@ function draw_heatmap(features, beats, target, colormap, range, y_formatter, num
                     .attr('y', 0)
                     .attr('height', d3.max(y.range()))
                     .style('fill', 'red')
-                    .style('fill-opacity', '0.25')
+                    .style('fill-opacity', '0.5')
                     .style('stroke', 'none');
 
     function update_marker(xpos) {
@@ -446,7 +446,7 @@ function draw_structure(beats, beat_links, all_segments, target) {
             if (value) {
                 arcs.style('fill-opacity', 1.0);
             } else {
-                arcs.style('fill-opacity', 0.25);
+                arcs.style('fill-opacity', 0.75);
             }
             
 //             d3.selectAll('path').style('stroke', 'none');
@@ -535,16 +535,26 @@ function draw_structure(beats, beat_links, all_segments, target) {
                 return n.x;
             });
 
+            var end_angle = 359.999;
+            if (j < labels.length) {
+                var end_angles = nodes.filter(function(n) { return n.segment == j + 1;}).map(function(n) {
+                    return n.x; });
+                if (end_angles.length > 0) {
+                    end_angle = end_angles[0];
+                }
+            }
+
             var segment_arc = d3.svg.arc()
                         .startAngle(angles[0]/ 180.0 * Math.PI)
-                        .endAngle(angles[angles.length-1] / 180.0 * Math.PI)
+                        .endAngle(end_angle / 180.0 * Math.PI)
+                        .padRadius(0)
                         .innerRadius(radius_i)
                         .outerRadius(radius_i + segment_width);
                     
             arcs.append('path')
                 .attr('d', segment_arc)
                 .style('fill', colors[labels[j]])
-                .style('fill-opacity', 0.25)
+                .style('fill-opacity', 0.75)
                 .attr('level', segment_level)
                 .attr('label', labels[j])
                 .attr('start_time', beats[segments[j]])
