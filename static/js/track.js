@@ -434,7 +434,8 @@ function draw_structure(beats, beat_links, all_segments, target) {
                     .value(function(d) { return d.size; });
 
 //    var colors = d3.scale.category20c();
-    var colors = colorbrewer.Set3[9];
+//    var colors = colorbrewer.Set3[9];
+    var colors = colorbrewer.Paired[12];
     // Build the nodes: root -> segments -> beats
 
     function highlight(level, value) {
@@ -506,10 +507,6 @@ function draw_structure(beats, beat_links, all_segments, target) {
             return function(g, i) {
                 var beat_id = segments[idx];
     
-            // Actually, we want to skip to the beat before the segment starts
-                if (beat_id > 0) {
-                    beat_id -= 1;
-                }
                 console.log('Skip to time: ' + beats[beat_id]);
                 $('#audio-widget')[0].currentTime = beats[beat_id];
 
@@ -535,13 +532,15 @@ function draw_structure(beats, beat_links, all_segments, target) {
                 return n.x;
             });
 
-            var end_angle = 359.999;
-            if (j < labels.length) {
-                var end_angles = nodes.filter(function(n) { return n.segment == j + 1;}).map(function(n) {
-                    return n.x; });
-                if (end_angles.length > 0) {
-                    end_angle = end_angles[0];
-                }
+            var end_angle = 360.0;
+            var end_angles = nodes.filter(function(n) { 
+                    return n.segment == j + 1;
+                }).map(function(n) {
+                    return n.x;
+                });
+
+            if (end_angles.length > 0) {
+                end_angle = end_angles[0];
             }
 
             var segment_arc = d3.svg.arc()
@@ -565,7 +564,7 @@ function draw_structure(beats, beat_links, all_segments, target) {
 //         arcs.on('mouseenter', highlight(segment_level, true))
 //             .on('mouseleave', highlight(segment_level, false));
 
-        radius_i = radius_i + segment_width + 2;
+        radius_i = radius_i + segment_width + 1;
     }
 
     // time -> beat -> angle
