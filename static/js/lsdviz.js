@@ -123,6 +123,7 @@ function draw_structure(all_segments) {
                 .style('fill-opacity', 0.75)
                 .attr('level', segment_level)
                 .attr('start_time', intervals[j][0])
+                .attr('label', labels[j])
                 .on('mouseenter', highlight(segment_level, true))
                 .on('mouseleave', highlight(segment_level, false))
                 .on('click', time_skip());

@@ -3,6 +3,7 @@
 
 from argparse import ArgumentParser
 import sys
+from datetime import datetime
 import os
 import re
 import mimetypes
@@ -77,7 +78,10 @@ def send_file_partial(path, **kwargs):
                         206,
                         mimetype=mimetypes.guess_type(path)[0],
                         direct_passthrough=True)
-
+    rv.headers['Last-Modified'] = datetime.now()
+    rv.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    rv.headers['Pragma'] = 'no-cache'
+    rv.headers['Expires'] = '-1'
     rv.headers.add('Content-Range',
                    'bytes {0}-{1}/{2}'.format(byte1,
                                               byte1 + length - 1,
