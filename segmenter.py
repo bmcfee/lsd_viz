@@ -15,9 +15,9 @@ import librosa
 BPO = 12 * 3
 N_OCTAVES = 7
 EVEC_SMOOTH = 9
-REC_SMOOTH = 7
+REC_SMOOTH = 9
 MAX_TYPES = 12
-REC_WIDTH = 7
+REC_WIDTH = 9
 
 
 def make_beat_sync_features(y, sr):
@@ -35,7 +35,7 @@ def make_beat_sync_features(y, sr):
                                                                 x_max=C.shape[1]),
                                         sr=sr)
 
-    mfcc = librosa.feature.mfcc(y=y, sr=sr)
+    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
     Msync = librosa.util.sync(mfcc, beats)
 
     return Csync, Msync, beat_times
