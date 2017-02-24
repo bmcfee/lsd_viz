@@ -4,10 +4,30 @@ $(document).ready(function() {
 
     $('.tabs').tab();
 
+    $('#complexity').slider({
+        min: 1,
+        max: 12,
+        value: 1,
+        change: function(event, ui) {
+            setComplexity(ui.value);
+        }
+    });
+
     $('#audio-widget').bind('timeupdate', function() { 
         track_progress(this.currentTime);
     });
 });
+
+function setComplexity(value) {
+    for (var i = 0; i <= value; i++){
+        d3.selectAll('[level="' + i + '"]')
+            .style('display', 'block');
+    }
+    for (var i = value + 1; i <= 12; i++) {
+        d3.selectAll('[level="' + i + '"]')
+            .style('display', 'none');
+    }
+}
 
 // Retrieve the analysis object
 $.ajax({
@@ -18,7 +38,6 @@ $.ajax({
 var progress_updates    = [];
 var beat_times          = null;
 var last_beat           = null;
-
 
 // Update position for audio widget
 function track_progress(time) {
@@ -141,5 +160,6 @@ function draw_structure(all_segments) {
     }
     update(0);
     progress_updates.push(update);
+    setComplexity(1);
 }
 
