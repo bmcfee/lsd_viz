@@ -17,7 +17,7 @@ N_OCTAVES = 7
 EVEC_SMOOTH = 9
 REC_SMOOTH = 7
 MAX_TYPES = 12
-REC_WIDTH = 3
+REC_WIDTH = 7
 
 
 def make_beat_sync_features(y, sr):

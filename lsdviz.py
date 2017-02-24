@@ -41,7 +41,8 @@ def index():
     '''The main page'''
     return flask.render_template('lsdviz.html',
                                  filename=params.filename,
-                                 metadata=os.path.basename(params.filename))
+                                 metadata=os.path.basename(params.filename),
+                                 track=hash(params.filename))
 
 
 def send_file_partial(path, **kwargs):
@@ -90,8 +91,8 @@ def send_file_partial(path, **kwargs):
     return rv
 
 
-@app.route('/audio')
-def get_audio():
+@app.route('/audio/<track>')
+def get_audio(track):
     return send_file_partial(params.filename, cache_timeout=0)
 
 
@@ -105,4 +106,4 @@ if __name__ == '__main__':
 
     segment_hierarchy = segmenter.segment_file(params.filename)
 
-    app.run(host=params.host, port=params.port, debug=True)
+    app.run(host=params.host, port=params.port, debug=False)
