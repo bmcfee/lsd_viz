@@ -2,7 +2,11 @@
 
 import argparse
 import flask
-import ConfigParser
+try:
+    import ConfigParser
+except ImportError:
+    import configparser as ConfigParser
+
 import mimetypes
 import os
 import re
@@ -27,8 +31,8 @@ def load_config(server_ini):
     for section in P.sections():
         CFG[section] = dict(P.items(section))
 
-    for (k, v) in CFG['server'].iteritems():
-        app.config[k] = v
+    for k in CFG['server']:
+        app.config[k] = CFG['server'][k]
     return CFG
 
 def run(**kwargs):

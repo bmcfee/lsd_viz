@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import numpy as np
-import cPickle as pickle
+import pickle
 import ujson as json
 import os
 import glob
