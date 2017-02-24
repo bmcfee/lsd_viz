@@ -14,28 +14,23 @@
 
     <body>
         <div class="page-header">
-            <h1>
                 <div class="pull-right" style="padding-top: 6px; padding-right: 6px;">
                     <audio controls id="audio-widget">
-                        <source src="/audio/{{ track_id }}">
+                        <source src="/audio">
                     </audio>
                 </div>
 
-                <span id="track_title"></span>
-                <small><span id="track_artist"></small>
-            </h1>
+                <span id="track_title">{{ metadata }}</span>
         </div>
 
         <!-- content visualization goes here -->
         <div id="structplot" class="structplot"></div>
-
-        <input type="hidden" id="track_id" value="{{ track_id }}" />
     </body>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/static/js/colorbrewer.js"></script>
-    <script type="text/javascript" src="/static/js/track.js"></script>
+    <script type="text/javascript" src="/static/js/lsdviz.js"></script>
 
 </html>
