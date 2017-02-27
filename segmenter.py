@@ -22,7 +22,8 @@ REC_WIDTH = 9
 
 def make_beat_sync_features(y, sr):
 
-    C = librosa.amplitude_to_db(librosa.cqt(y=y, sr=sr,
+    yh = librosa.effects.harmonic(y, margin=8)
+    C = librosa.amplitude_to_db(librosa.cqt(y=yh, sr=sr,
                                             bins_per_octave=BPO,
                                             n_bins=N_OCTAVES * BPO),
                                 ref=np.max)
@@ -45,6 +46,7 @@ def embed_beats(A_rep, A_loc):
 
     R = librosa.segment.recurrence_matrix(A_rep, width=REC_WIDTH,
                                           mode='affinity',
+                                          metric='cosine',
                                           sym=True)
 
     # Enhance diagonals with a median filter (Equation 2)

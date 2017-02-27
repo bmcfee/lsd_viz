@@ -6,8 +6,8 @@ $(document).ready(function() {
 
     $('#complexity').slider({
         min: 1,
-        max: 12,
-        value: 1,
+        max: 10,
+        value: 5,
         change: function(event, ui) {
             setComplexity(ui.value);
         }
@@ -23,7 +23,7 @@ function setComplexity(value) {
         d3.selectAll('[level="' + i + '"]')
             .style('display', 'block');
     }
-    for (var i = value + 1; i <= 12; i++) {
+    for (var i = value + 1; i <= 10; i++) {
         d3.selectAll('[level="' + i + '"]')
             .style('display', 'none');
     }
@@ -160,6 +160,6 @@ function draw_structure(all_segments) {
     }
     update(0);
     progress_updates.push(update);
-    setComplexity(1);
+    setComplexity(5);
 }
 
