@@ -113,7 +113,8 @@ function draw_structure(all_segments) {
             var my_arcs = d3.selectAll('[level="' + level + '"][label="' + label + '"]');
             my_arcs.style('stroke', 'white')
                     .style('stroke-width', '4px')
-                    .style('stroke-opacity', 1.0);
+                    .style('stroke-linejoin', 'round')
+                    .style('stroke-opacity', 0.85);
 
         };
     }
