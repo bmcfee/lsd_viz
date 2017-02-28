@@ -87,7 +87,7 @@ def embed_beats(A_rep, A_loc):
 def cluster(evecs, Cnorm, k, beat_times):
     X = evecs[:, :k] / Cnorm[:, k-1:k]
 
-    KM = sklearn.cluster.KMeans(n_clusters=k)
+    KM = sklearn.cluster.KMeans(n_clusters=k, n_init=50, max_iter=500)
 
     seg_ids = KM.fit_predict(X)
 
