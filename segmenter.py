@@ -23,12 +23,16 @@ REC_WIDTH = 9
 
 def make_beat_sync_features(y, sr):
 
+    print('\tseparating harmonics..')
     yh = librosa.effects.harmonic(y, margin=8)
+
+    print('\tcomputing CQT...')
     C = librosa.amplitude_to_db(librosa.cqt(y=yh, sr=sr,
                                             bins_per_octave=BPO,
                                             n_bins=N_OCTAVES * BPO),
                                 ref=np.max)
 
+    print('\ttracking beats...')
     tempo, beats = librosa.beat.beat_track(y=y, sr=sr, trim=False)
     Csync = librosa.util.sync(C, beats, aggregate=np.median)
 
@@ -37,6 +41,7 @@ def make_beat_sync_features(y, sr):
                                                                 x_max=C.shape[1]),
                                         sr=sr)
 
+    print('\tcomputing MFCCs...')
     mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
     Msync = librosa.util.sync(mfcc, beats)
 
@@ -45,6 +50,7 @@ def make_beat_sync_features(y, sr):
 
 def embed_beats(A_rep, A_loc):
 
+    print('\tbuilding recurrence graph...')
     R = librosa.segment.recurrence_matrix(A_rep, width=REC_WIDTH,
                                           mode='affinity',
                                           metric='cosine',
@@ -54,6 +60,7 @@ def embed_beats(A_rep, A_loc):
     df = librosa.segment.timelag_filter(scipy.ndimage.median_filter)
     Rf = df(R, size=(1, REC_SMOOTH))
 
+    print('\tbuilding local graph...')
     path_distance = np.sum(np.diff(A_loc, axis=1)**2, axis=0)
     sigma = np.median(path_distance)
     path_sim = np.exp(-path_distance / sigma)
@@ -62,6 +69,7 @@ def embed_beats(A_rep, A_loc):
 
     ##########################################################
     # And compute the balanced combination (Equations 6, 7, 9)
+    print('\tcomputing the Laplacian')
 
     deg_path = np.sum(R_path, axis=1)
     deg_rec = np.sum(Rf, axis=1)
@@ -159,16 +167,22 @@ def reindex(hierarchy):
 
 
 def segment_file(filename):
+    print('Loading {}'.format(filename))
     y, sr = librosa.load(filename)
 
+    print('Extracting features...'.format(filename))
     Csync, Msync, beat_times = make_beat_sync_features(y=y, sr=sr)
 
+    print('Constructing embedding...'.format(filename))
     embedding = embed_beats(Csync, Msync)
 
     Cnorm = np.cumsum(embedding**2, axis=1)**0.5
 
+    print('Clustering...'.format(filename))
     segmentations = []
     for k in range(1, MAX_TYPES):
+        print('\tk={}'.format(k))
         segmentations.append(cluster(embedding, Cnorm, k, beat_times))
 
+    print('done.')
     return reindex(segmentations)
