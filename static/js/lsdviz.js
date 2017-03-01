@@ -9,6 +9,7 @@ $(document).ready(function() {
         min: 1,
         max: 10,
         value: 1,
+        classes: { "ui-slider": "highlight" },
         change: function(event, ui) {
             setComplexity(ui.value);
         }

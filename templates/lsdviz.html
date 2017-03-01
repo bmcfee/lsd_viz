@@ -15,14 +15,19 @@
     </head>
 
     <body>
-        <div class="page-header">
-                <div class="pull-right" style="padding-top: 6px; padding-right: 6px;">
+        <div class="container">
+            <div class="media col-md-6 panel panel-default">
+                <div class="media-body panel-body">
+                    <h4 class="media-heading" id="track_title">{{ metadata }}</h4>
                     <audio controls id="audio-widget">
                         <source src="/audio/{{ track }}">
                     </audio>
-                    <div id="complexity"></div>
+                    <div class="container">
+                        <label class="pull-left" for="complexity">Complexity</label>
+                        <span id="complexity" class="col-md-2"></span>
+                    </div>
                 </div>
-                <span id="track_title">{{ metadata }}</span>
+            </div>
         </div>
 
         <!-- content visualization goes here -->
