@@ -1,3 +1,4 @@
+var radii = [];
 
 // Initialize tabs
 $(document).ready(function() {
@@ -7,7 +8,7 @@ $(document).ready(function() {
     $('#complexity').slider({
         min: 1,
         max: 10,
-        value: 5,
+        value: 1,
         change: function(event, ui) {
             setComplexity(ui.value);
         }
@@ -19,6 +20,7 @@ $(document).ready(function() {
 });
 
 function setComplexity(value) {
+    // Show or hide the segments at each level
     for (var i = 0; i <= value; i++){
         d3.selectAll('[level="' + i + '"]')
             .style('display', 'block');
@@ -27,6 +29,9 @@ function setComplexity(value) {
         d3.selectAll('[level="' + i + '"]')
             .style('display', 'none');
     }
+
+    // Lengthen or shorten the line accordingly
+   $('.marker').attr('y1', -radii[value]);
 }
 
 // Retrieve the analysis object
@@ -126,6 +131,7 @@ function draw_structure(all_segments) {
         // Iterate over segment hierarchy levels
         var arcs = svg.append('g');
         var segment_width = 35 - 2 * segment_level;
+        radii.push(radius_i + segment_width);
 
         for (var j = 0; j < intervals.length; j++) {
             // Iterate over segments within this level
@@ -161,6 +167,6 @@ function draw_structure(all_segments) {
     }
     update(0);
     progress_updates.push(update);
-    setComplexity(5);
+    setComplexity(1);
 }
 
