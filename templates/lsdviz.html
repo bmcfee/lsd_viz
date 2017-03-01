@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <!-- Latest compiled and minified CSS -->
+
+        <!-- Optional theme -->
+        <link   rel="stylesheet"
+                href="/static/css/bootstrap.min.css">
+        <link   rel="stylesheet"
+                href="/static/css/track.css">
+        <link   rel="stylesheet"
+                href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="media col-md-6 panel panel-default">
+                <div class="media-body panel-body">
+                    <h4 class="media-heading" id="track_title">{{ metadata }}</h4>
+                    <audio controls id="audio-widget">
+                        <source src="/audio/{{ track }}">
+                    </audio>
+                    <div class="container">
+                        <label class="pull-left" for="complexity">Complexity</label>
+                        <span id="complexity" class="col-md-2"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- content visualization goes here -->
+        <div id="structplot" class="structplot"></div>
+    </body>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/js/colorbrewer.js"></script>
+    <script type="text/javascript" src="/static/js/lsdviz.js"></script>
+
+</html>

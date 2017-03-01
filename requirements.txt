@@ -1,0 +1,7 @@
+numpy >= 1.10
+scipy >= 0.18
+librosa >= 0.5
+scikit-learn >= 0.17
+flask
+json
+
