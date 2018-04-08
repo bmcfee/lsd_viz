@@ -1,5 +1,6 @@
 Laplacian structural decomposition music visualization
 ======================================================
+[![DOI](https://zenodo.org/badge/25174270.svg)](https://zenodo.org/badge/latestdoi/25174270)
 
 LSD_VIZ is a web-based, multi-level music structure analysis visualizer.
 The analysis is based on the spectral clustering algorithm of
