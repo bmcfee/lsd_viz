@@ -8,7 +8,7 @@ The analysis is based on the spectral clustering algorithm of
 
 Here's how it looks on *The Beatles - Come Together*:
 
-~[Structure visualization](lsdviz.png)
+![Structure visualization](https://raw.githubusercontent.com/bmcfee/lsd_viz/master/lsdviz.png)
 
 Installation
 ============
